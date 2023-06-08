@@ -1,4 +1,6 @@
-﻿namespace Calculator
+﻿using System.Data;
+
+namespace Calculator
 {
     partial class Form1
     {
@@ -63,6 +65,7 @@
             buttonAdd.TabIndex = 0;
             buttonAdd.Text = "+";
             buttonAdd.UseVisualStyleBackColor = false;
+            buttonAdd.Click += button_Click;
             // 
             // buttonSub
             // 
@@ -73,6 +76,7 @@
             buttonSub.TabIndex = 1;
             buttonSub.Text = "-";
             buttonSub.UseVisualStyleBackColor = false;
+            buttonSub.Click += button_Click;
             // 
             // buttonMulti
             // 
@@ -83,6 +87,7 @@
             buttonMulti.TabIndex = 2;
             buttonMulti.Text = "x";
             buttonMulti.UseVisualStyleBackColor = false;
+            buttonMulti.Click += button_Click;
             // 
             // buttonDivison
             // 
@@ -93,6 +98,7 @@
             buttonDivison.TabIndex = 3;
             buttonDivison.Text = "/";
             buttonDivison.UseVisualStyleBackColor = false;
+            buttonDivison.Click += button_Click;
             // 
             // buttonLBracket
             // 
@@ -103,6 +109,7 @@
             buttonLBracket.TabIndex = 4;
             buttonLBracket.Text = "(";
             buttonLBracket.UseVisualStyleBackColor = false;
+            buttonLBracket.Click += button_Click;
             // 
             // buttonRBracket
             // 
@@ -113,6 +120,7 @@
             buttonRBracket.TabIndex = 5;
             buttonRBracket.Text = ")";
             buttonRBracket.UseVisualStyleBackColor = false;
+            buttonRBracket.Click += button_Click;
             // 
             // buttonEquals
             // 
@@ -122,6 +130,7 @@
             buttonEquals.TabIndex = 9;
             buttonEquals.Text = "=";
             buttonEquals.UseVisualStyleBackColor = true;
+            buttonEquals.Click += button_Equals_Click;
             // 
             // button3
             // 
@@ -131,6 +140,7 @@
             button3.TabIndex = 8;
             button3.Text = "3";
             button3.UseVisualStyleBackColor = true;
+            button3.Click += button_Click;
             // 
             // button6
             // 
@@ -140,6 +150,7 @@
             button6.TabIndex = 7;
             button6.Text = "6";
             button6.UseVisualStyleBackColor = true;
+            button6.Click += button_Click;
             // 
             // button9
             // 
@@ -149,6 +160,7 @@
             button9.TabIndex = 6;
             button9.Text = "9";
             button9.UseVisualStyleBackColor = true;
+            button9.Click += button_Click;
             // 
             // buttonDeci
             // 
@@ -158,6 +170,7 @@
             buttonDeci.TabIndex = 14;
             buttonDeci.Text = ".";
             buttonDeci.UseVisualStyleBackColor = true;
+            buttonDeci.Click += button_Click;
             // 
             // button2
             // 
@@ -167,6 +180,7 @@
             button2.TabIndex = 13;
             button2.Text = "2";
             button2.UseVisualStyleBackColor = true;
+            button2.Click += button_Click;
             // 
             // button5
             // 
@@ -176,6 +190,7 @@
             button5.TabIndex = 12;
             button5.Text = "5";
             button5.UseVisualStyleBackColor = true;
+            button5.Click += button_Click;
             // 
             // button8
             // 
@@ -185,6 +200,7 @@
             button8.TabIndex = 11;
             button8.Text = "8";
             button8.UseVisualStyleBackColor = true;
+            button8.Click += button_Click;
             // 
             // buttonClearEntry
             // 
@@ -195,6 +211,7 @@
             buttonClearEntry.TabIndex = 10;
             buttonClearEntry.Text = "CE";
             buttonClearEntry.UseVisualStyleBackColor = false;
+            buttonClearEntry.Click += button_Click;
             // 
             // button0
             // 
@@ -204,6 +221,7 @@
             button0.TabIndex = 19;
             button0.Text = "0";
             button0.UseVisualStyleBackColor = true;
+            button0.Click += button_Click;
             // 
             // button1
             // 
@@ -213,6 +231,7 @@
             button1.TabIndex = 18;
             button1.Text = "1";
             button1.UseVisualStyleBackColor = true;
+            button1.Click += button_Click;
             // 
             // button4
             // 
@@ -222,6 +241,7 @@
             button4.TabIndex = 17;
             button4.Text = "4";
             button4.UseVisualStyleBackColor = true;
+            button4.Click += button_Click;
             // 
             // button7
             // 
@@ -231,6 +251,7 @@
             button7.TabIndex = 16;
             button7.Text = "7";
             button7.UseVisualStyleBackColor = true;
+            button7.Click += button_Click;
             // 
             // buttonClear
             // 
@@ -241,6 +262,7 @@
             buttonClear.TabIndex = 15;
             buttonClear.Text = "C";
             buttonClear.UseVisualStyleBackColor = false;
+            buttonClear.Click += button_Click;
             // 
             // panel1
             // 
@@ -267,7 +289,7 @@
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(246, 386);
+            ClientSize = new Size(241, 386);
             Controls.Add(panel1);
             Controls.Add(button0);
             Controls.Add(button1);
@@ -321,7 +343,7 @@
         private Panel panel1;
         private MaskedTextBox textBoxOutput;
 
-    // Functions
+        // Functions
         // Executes when any number or operation is pressed
         private void button_Click(object sender, EventArgs e)
         {
@@ -330,6 +352,25 @@
 
             // Display the current calculation back to the user
             textBoxOutput.Text = currentCalculation;
+        }
+
+        // Calculates the final result
+        private void button_Equals_Click(object sender, EventArgs e)
+        {
+            string formattedCalculation = currentCalculation.ToString().Replace("X", "*").ToString().Replace("&divide;", "/");
+
+            // capture invalid inputs
+            try
+            {
+                // using Compute() to calculate the result
+                textBoxOutput.Text = new DataTable().Compute(formattedCalculation, null).ToString();
+                currentCalculation = textBoxOutput.Text;
+            }
+            catch (Exception)
+            {
+                textBoxOutput.Text = "0";
+                currentCalculation = "";
+            }
         }
     }
 }
