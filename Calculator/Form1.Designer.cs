@@ -2,6 +2,7 @@
 {
     partial class Form1
     {
+        private string currentCalculation = "";
         /// <summary>
         ///  Required designer variable.
         /// </summary>
@@ -319,5 +320,16 @@
         private Button buttonClear;
         private Panel panel1;
         private MaskedTextBox textBoxOutput;
+
+    // Functions
+        // Executes when any number or operation is pressed
+        private void button_Click(object sender, EventArgs e)
+        {
+            // Adds the number or operator to the string calculation
+            currentCalculation += (sender as Button).Text;
+
+            // Display the current calculation back to the user
+            textBoxOutput.Text = currentCalculation;
+        }
     }
 }
