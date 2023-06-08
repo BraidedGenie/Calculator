@@ -211,7 +211,7 @@ namespace Calculator
             buttonClearEntry.TabIndex = 10;
             buttonClearEntry.Text = "CE";
             buttonClearEntry.UseVisualStyleBackColor = false;
-            buttonClearEntry.Click += button_Click;
+            buttonClearEntry.Click += button_ClearEntry_Click;
             // 
             // button0
             // 
@@ -262,7 +262,7 @@ namespace Calculator
             buttonClear.TabIndex = 15;
             buttonClear.Text = "C";
             buttonClear.UseVisualStyleBackColor = false;
-            buttonClear.Click += button_Click;
+            buttonClear.Click += button_Clear_Click;
             // 
             // panel1
             // 
@@ -371,6 +371,27 @@ namespace Calculator
                 textBoxOutput.Text = "0";
                 currentCalculation = "";
             }
+        }
+
+        // Executes when user clicks on Clear button
+        private void button_Clear_Click(object sender, EventArgs e)
+        {
+            // Reset the calculation and empty the textbox
+            textBoxOutput.Text = "0";
+            currentCalculation = "";
+        }
+
+        // Executes when the user clicks on the Clear Entry button
+        private void button_ClearEntry_Click(object sender, EventArgs e)
+        {
+            // If the calculation is not empty, remove the last number/operator entered
+            if (currentCalculation.Length > 0)
+            {
+                currentCalculation = currentCalculation.Remove(currentCalculation.Length - 1, 1);
+            }
+
+            // Re-display the calculation onto the screen
+            textBoxOutput.Text = currentCalculation;
         }
     }
 }
