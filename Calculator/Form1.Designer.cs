@@ -52,6 +52,7 @@ namespace Calculator
             button7 = new Button();
             buttonClear = new Button();
             panel1 = new Panel();
+            mainOutput = new MaskedTextBox();
             textBoxOutput = new MaskedTextBox();
             panel1.SuspendLayout();
             SuspendLayout();
@@ -138,6 +139,7 @@ namespace Calculator
             button3.Name = "button3";
             button3.Size = new Size(50, 50);
             button3.TabIndex = 8;
+            button3.Tag = "Number";
             button3.Text = "3";
             button3.UseVisualStyleBackColor = true;
             button3.Click += button_Click;
@@ -148,6 +150,7 @@ namespace Calculator
             button6.Name = "button6";
             button6.Size = new Size(50, 50);
             button6.TabIndex = 7;
+            button6.Tag = "Number";
             button6.Text = "6";
             button6.UseVisualStyleBackColor = true;
             button6.Click += button_Click;
@@ -158,6 +161,7 @@ namespace Calculator
             button9.Name = "button9";
             button9.Size = new Size(50, 50);
             button9.TabIndex = 6;
+            button9.Tag = "Number";
             button9.Text = "9";
             button9.UseVisualStyleBackColor = true;
             button9.Click += button_Click;
@@ -168,6 +172,7 @@ namespace Calculator
             buttonDeci.Name = "buttonDeci";
             buttonDeci.Size = new Size(50, 50);
             buttonDeci.TabIndex = 14;
+            buttonDeci.Tag = "Number";
             buttonDeci.Text = ".";
             buttonDeci.UseVisualStyleBackColor = true;
             buttonDeci.Click += button_Click;
@@ -178,6 +183,7 @@ namespace Calculator
             button2.Name = "button2";
             button2.Size = new Size(50, 50);
             button2.TabIndex = 13;
+            button2.Tag = "Number";
             button2.Text = "2";
             button2.UseVisualStyleBackColor = true;
             button2.Click += button_Click;
@@ -188,6 +194,7 @@ namespace Calculator
             button5.Name = "button5";
             button5.Size = new Size(50, 50);
             button5.TabIndex = 12;
+            button5.Tag = "Number";
             button5.Text = "5";
             button5.UseVisualStyleBackColor = true;
             button5.Click += button_Click;
@@ -198,6 +205,7 @@ namespace Calculator
             button8.Name = "button8";
             button8.Size = new Size(50, 50);
             button8.TabIndex = 11;
+            button8.Tag = "Number";
             button8.Text = "8";
             button8.UseVisualStyleBackColor = true;
             button8.Click += button_Click;
@@ -219,6 +227,7 @@ namespace Calculator
             button0.Name = "button0";
             button0.Size = new Size(50, 50);
             button0.TabIndex = 19;
+            button0.Tag = "Number";
             button0.Text = "0";
             button0.UseVisualStyleBackColor = true;
             button0.Click += button_Click;
@@ -229,6 +238,7 @@ namespace Calculator
             button1.Name = "button1";
             button1.Size = new Size(50, 50);
             button1.TabIndex = 18;
+            button1.Tag = "Number";
             button1.Text = "1";
             button1.UseVisualStyleBackColor = true;
             button1.Click += button_Click;
@@ -239,6 +249,7 @@ namespace Calculator
             button4.Name = "button4";
             button4.Size = new Size(50, 50);
             button4.TabIndex = 17;
+            button4.Tag = "Number";
             button4.Text = "4";
             button4.UseVisualStyleBackColor = true;
             button4.Click += button_Click;
@@ -249,6 +260,7 @@ namespace Calculator
             button7.Name = "button7";
             button7.Size = new Size(50, 50);
             button7.TabIndex = 16;
+            button7.Tag = "Number";
             button7.Text = "7";
             button7.UseVisualStyleBackColor = true;
             button7.Click += button_Click;
@@ -267,18 +279,30 @@ namespace Calculator
             // panel1
             // 
             panel1.BackColor = SystemColors.ControlLightLight;
+            panel1.Controls.Add(mainOutput);
             panel1.Controls.Add(textBoxOutput);
             panel1.Location = new Point(12, 12);
             panel1.Name = "panel1";
             panel1.Size = new Size(218, 59);
             panel1.TabIndex = 20;
             // 
+            // mainOutput
+            // 
+            mainOutput.BackColor = SystemColors.ControlLightLight;
+            mainOutput.BorderStyle = BorderStyle.None;
+            mainOutput.Enabled = false;
+            mainOutput.Location = new Point(81, 29);
+            mainOutput.Name = "mainOutput";
+            mainOutput.Size = new Size(125, 20);
+            mainOutput.TabIndex = 1;
+            mainOutput.TextAlign = HorizontalAlignment.Right;
+            // 
             // textBoxOutput
             // 
             textBoxOutput.BackColor = SystemColors.ControlLightLight;
             textBoxOutput.BorderStyle = BorderStyle.None;
             textBoxOutput.Enabled = false;
-            textBoxOutput.Location = new Point(81, 20);
+            textBoxOutput.Location = new Point(81, 3);
             textBoxOutput.Name = "textBoxOutput";
             textBoxOutput.Size = new Size(125, 20);
             textBoxOutput.TabIndex = 0;
@@ -312,6 +336,7 @@ namespace Calculator
             Controls.Add(buttonSub);
             Controls.Add(buttonAdd);
             Name = "Form1";
+            Tag = "Number";
             Text = "Form1";
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
@@ -363,8 +388,9 @@ namespace Calculator
             try
             {
                 // using Compute() to calculate the result
-                textBoxOutput.Text = new DataTable().Compute(formattedCalculation, null).ToString();
-                currentCalculation = textBoxOutput.Text;
+                mainOutput.Text = new DataTable().Compute(formattedCalculation, null).ToString();
+                //currentCalculation = textBoxOutput.Text;
+
             }
             catch (Exception)
             {
@@ -379,6 +405,7 @@ namespace Calculator
             // Reset the calculation and empty the textbox
             textBoxOutput.Text = "0";
             currentCalculation = "";
+            mainOutput.Text = "";
         }
 
         // Executes when the user clicks on the Clear Entry button
@@ -393,5 +420,7 @@ namespace Calculator
             // Re-display the calculation onto the screen
             textBoxOutput.Text = currentCalculation;
         }
+
+        private MaskedTextBox mainOutput;
     }
 }
